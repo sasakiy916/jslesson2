@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button class="select">赤を持つ</button>
+    <button class="select">緑を持つ</button>
+    <button class="select">青を持つ</button>
+    <button onclick="btWrite()">書く</button>
+    <div id="result"></div>
+<script>
+    class Pen{
+        constructor(color,length){
+            this.color = color;
+            this.length = length;
+        }
+        write(){
+            if(this.length < 0.5){
+                return `${this.color}はもう書けません`;
+            }
+            this.length -= 0.5;
+            return `${this.color}で書きました。残りの長さは${this.length}`;
+        }
+    }
+    const btn = document.querySelectorAll(".select");
+    let pens = [new Pen("赤",10),new Pen("緑",10),new Pen("青",10)]
+    let pen = null;
+    let msg = "";
+    const result = document.getElementById("result");
+    for(let i=0;i<pens.length;i++){
+        btn[i].addEventListener("click",()=>{
+            pen = pens[i];
+            result.textContent = `${pen.color}を持った`;
+        });
+    }
+    const btWrite=()=>{
+        if(pen == null){
+            msg = "ペンを持ってください";
+        }else{
+            msg = pen.write();
+        }
+        result.textContent = msg;
+    };
+</script>
+</body>
+</html>
