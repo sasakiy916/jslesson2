@@ -11,11 +11,13 @@
     <button class="select">緑を持つ</button>
     <button class="select">青を持つ</button>
     <button onclick="btWrite()">書く</button>
-    <div id="result"></div>
+    <p id="result"></p>
+    <div id="graph"></div>
 <script>
     class Pen{
-        constructor(color,length){
+        constructor(color,code,length){
             this.color = color;
+            this.code = code;
             this.length = length;
         }
         write(){
@@ -27,14 +29,16 @@
         }
     }
     const btn = document.querySelectorAll(".select");
-    let pens = [new Pen("赤",10),new Pen("緑",10),new Pen("青",10)]
+    let pens = [new Pen("赤","red",10),new Pen("緑","green",10),new Pen("青","blue",10)]
     let pen = null;
     let msg = "";
+    const graph = document.getElementById("graph");
     const result = document.getElementById("result");
     for(let i=0;i<pens.length;i++){
         btn[i].addEventListener("click",()=>{
             pen = pens[i];
             result.textContent = `${pen.color}を持った`;
+            setStyle();
         });
     }
     const btWrite=()=>{
@@ -42,8 +46,15 @@
             msg = "ペンを持ってください";
         }else{
             msg = pen.write();
+            setStyle();
         }
         result.textContent = msg;
+    };
+    const setStyle=()=>{
+        graph.textContent = pen.length + "cm";
+        graph.style.width = pen.length + "cm";
+        graph.style.backgroundColor = pen.code;
+        graph.style.color = "yellow";
     };
 </script>
 </body>
