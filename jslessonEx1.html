@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <button class="select">赤を持つ</button>
     <button class="select">緑を持つ</button>
@@ -13,49 +15,50 @@
     <button onclick="btWrite()">書く</button>
     <p id="result"></p>
     <div id="graph"></div>
-<script>
-    class Pen{
-        constructor(color,code,length){
-            this.color = color;
-            this.code = code;
-            this.length = length;
-        }
-        write(){
-            if(this.length < 0.5){
-                return `${this.color}はもう書けません`;
+    <script>
+        class Pen {
+            constructor(color, code, length) {
+                this.color = color;
+                this.code = code;
+                this.length = length;
             }
-            this.length -= 0.5;
-            return `${this.color}で書きました。残りの長さは${this.length}`;
+            write() {
+                if (this.length < 0.5) {
+                    return `${this.color}はもう書けません`;
+                }
+                this.length -= 0.5;
+                return `${this.color}で書きました。残りの長さは${this.length}`;
+            }
         }
-    }
-    const btn = document.querySelectorAll(".select");
-    let pens = [new Pen("赤","red",10),new Pen("緑","green",10),new Pen("青","blue",10)]
-    let pen = null;
-    let msg = "";
-    const graph = document.getElementById("graph");
-    const result = document.getElementById("result");
-    for(let i=0;i<pens.length;i++){
-        btn[i].addEventListener("click",()=>{
-            pen = pens[i];
-            result.textContent = `${pen.color}を持った`;
-            setStyle();
-        });
-    }
-    const btWrite=()=>{
-        if(pen == null){
-            msg = "ペンを持ってください";
-        }else{
-            msg = pen.write();
-            setStyle();
+        const btn = document.querySelectorAll(".select");
+        let pens = [new Pen("赤", "red", 10), new Pen("緑", "green", 10), new Pen("青", "blue", 10)]
+        let pen = null;
+        let msg = "";
+        const graph = document.getElementById("graph");
+        const result = document.getElementById("result");
+        for (let i = 0; i < pens.length; i++) {
+            btn[i].addEventListener("click", () => {
+                pen = pens[i];
+                result.textContent = `${pen.color}を持った`;
+                setStyle();
+            });
         }
-        result.textContent = msg;
-    };
-    const setStyle=()=>{
-        graph.textContent = pen.length + "cm";
-        graph.style.width = pen.length + "cm";
-        graph.style.backgroundColor = pen.code;
-        graph.style.color = "yellow";
-    };
-</script>
+        const btWrite = () => {
+            if (pen == null) {
+                msg = "ペンを持ってください";
+            } else {
+                msg = pen.write();
+                setStyle();
+            }
+            result.textContent = msg;
+        };
+        const setStyle = () => {
+            graph.textContent = pen.length + "cm";
+            graph.style.width = pen.length + "cm";
+            graph.style.backgroundColor = pen.code;
+            graph.style.color = "yellow";
+        };
+    </script>
 </body>
+
 </html>
